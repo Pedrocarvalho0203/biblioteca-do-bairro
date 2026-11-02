@@ -1,14 +1,350 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Biblioteca</title>
+
+    <style>
+        /* Estilos gerais */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #263b70;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        nav {
+            background-color: #172554;
+            text-align: center;
+            padding: 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        nav a:hover {
+            color: #f4a261;
+        }
+
+        /* Conteúdo */
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #263b70;
+            border-bottom: 2px solid #f4a261;
+            padding-bottom: 8px;
+        }
+
+        /* Apresentação */
+        .inicio {
+            background-color: #e3e8f2;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .botao {
+            display: inline-block;
+            background-color: #263b70;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .botao:hover {
+            background-color: #f4a261;
+            color: #172554;
+        }
+
+        /* Cartões */
+        .cartoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .cartao {
+            background-color: white;
+            padding: 18px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1;
+            min-width: 220px;
+        }
+
+        /* Livros */
+        .livros {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .livro {
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .livro img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        /* Eventos */
+        .evento {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #f4a261;
+        }
+
+        /* Formulário */
+        form {
+            background-color: white;
+            padding: 20px;
+            max-width: 600px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #263b70;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f4a261;
+            color: #172554;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #172554;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* Telemóveis */
+        @media (max-width: 600px) {
+            nav a {
+                display: block;
+                margin: 8px;
+            }
+
+            .livros {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    
+
+    <header>
+        <h1>Biblioteca</h1>
+        <p>Um espaço para aprender e descobrir novos livros</p>
+    </header>
+
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#livros">Livros</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#contactos">Contactos</a>
+    </nav>
+
+    <main>
+
+        <!-- Início -->
+        <section id="inicio" class="inicio">
+            <h2>Bem-vindo à nossa biblioteca!</h2>
+
+            <p>
+                Aqui podes encontrar livros de vários temas,
+                participar em atividades e descobrir o gosto pela leitura.
+            </p>
+
+            <a href="#livros" class="botao">Ver livros</a>
+        </section>
+
+        <!-- Sobre -->
+        <section id="sobre">
+            <h2>Sobre a biblioteca</h2>
+
+            <p>
+                A nossa biblioteca é um local onde todos podem ler,
+                estudar e aprender. Temos livros para diferentes
+                idades e gostos.
+            </p>
+
+            <div class="cartoes">
+
+                <div class="cartao">
+                    <h3>Leitura</h3>
+                    <p>
+                        Temos vários livros para quem gosta de ler
+                        e conhecer novas histórias.
+                    </p>
+                </div>
+
+                <div class="cartao">
+                    <h3>Aprendizagem</h3>
+                    <p>
+                        É um espaço onde podes estudar e
+                        aprender coisas novas.
+                    </p>
+                </div>
+
+                <div class="cartao">
+                    <h3>Atividades</h3>
+                    <p>
+                        Organizamos atividades para pessoas
+                        de diferentes idades.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Livros -->
+        <section id="livros">
+            <h2>Alguns dos nossos livros</h2>
+
+            <div class="livros">
+
+                <div class="livro">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500"
+                         alt="Livro sobre uma mesa">
+
+                    <h3>O mundo dos livros</h3>
+                    <p>Um livro para quem gosta de histórias.</p>
+                </div>
+
+                <div class="livro">
+                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500"
+                         alt="Livro aberto">
+
+                    <h3>Aprender mais</h3>
+                    <p>Uma leitura sobre conhecimento e aprendizagem.</p>
+                </div>
+
+                <div class="livro">
+                    <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500"
+                         alt="Livros empilhados">
+
+                    <h3>Uma aventura</h3>
+                    <p>Uma história cheia de aventura e descobertas.</p>
+                </div>
+
+                <div class="livro">
+                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500"
+                         alt="Pessoa a ler">
+
+                    <h3>Hora de ler</h3>
+                    <p>Um livro para aproveitar os momentos de leitura.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Eventos -->
+        <section id="eventos">
+            <h2>Próximos eventos</h2>
+
+            <div class="evento">
+                <h3>Clube de leitura</h3>
+                <p>15 de maio - Um encontro para falar sobre livros.</p>
+            </div>
+
+            <div class="evento">
+                <h3>Hora do conto</h3>
+                <p>22 de maio - Leitura de histórias para os mais novos.</p>
+            </div>
+
+            <div class="evento">
+                <h3>Feira do livro</h3>
+                <p>30 de maio - Uma oportunidade para descobrir novos livros.</p>
+            </div>
+        </section>
+
+        <!-- Contactos -->
+        <section id="contactos">
+            <h2>Contactos</h2>
+
+            <p>
+                Se tiveres alguma dúvida, podes enviar-nos uma mensagem.
+            </p>
+
+            <form action="#" method="post">
+
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagem" name="mensagem" rows="5"
+                          required></textarea>
+
+                <button type="submit">Enviar</button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Biblioteca - 2026</p>
+        <p>Obrigado pela visita!</p>
+    </footer>
+
 </body>
 </html>
-
-<h1>teste</h1>
-</body>
