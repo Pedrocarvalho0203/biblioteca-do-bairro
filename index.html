@@ -9,7 +9,14 @@
 </head>
 <body>
     <header id="inicio">
-        <h1>Biblioteca do Bairro</h1>
+        <div class="cabecalho-topo">
+            <h1>Biblioteca do Bairro</h1>
+            <button id="alternar-tema" class="botao-tema" type="button"
+                    aria-label="Ativar modo escuro" aria-pressed="false"
+                    title="Ativar modo escuro">
+                <span aria-hidden="true">☾</span>
+            </button>
+        </div>
         <p>Livros, eventos e leitura para todos, desde 1987.</p>
     </header>
 
@@ -137,6 +144,24 @@
         <p>Um espaço para ler, aprender e descobrir.</p>
     </footer>
     <script>
+        const botaoTema = document.querySelector("#alternar-tema");
+        const temaGuardado = localStorage.getItem("biblioteca-tema");
+
+        function definirTema(escuro) {
+            document.body.classList.toggle("modo-escuro", escuro);
+            botaoTema.setAttribute("aria-pressed", String(escuro));
+            botaoTema.setAttribute("aria-label", escuro ? "Ativar modo claro" : "Ativar modo escuro");
+            botaoTema.title = escuro ? "Ativar modo claro" : "Ativar modo escuro";
+            botaoTema.querySelector("span").textContent = escuro ? "☀" : "☾";
+        }
+
+        definirTema(temaGuardado === "escuro");
+        botaoTema.addEventListener("click", () => {
+            const escuro = !document.body.classList.contains("modo-escuro");
+            definirTema(escuro);
+            localStorage.setItem("biblioteca-tema", escuro ? "escuro" : "claro");
+        });
+
         document.querySelectorAll("[data-emprestar]").forEach((botao) => {
             botao.addEventListener("click", () => {
                 const estado = botao.previousElementSibling;

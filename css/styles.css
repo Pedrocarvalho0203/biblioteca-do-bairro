@@ -1,10 +1,35 @@
 :root {
+    --fundo: #fff8f0;
+    --texto: #263b52;
+    --titulo: #243b5b;
+    --cartao: #fff;
+    --borda: #e8dfd5;
+    --sombra: rgb(52 43 40 / 8%);
+    --estado: #526653;
+    --fundo-horario: #f4cf93;
+    --texto-horario: #382f29;
+    --fundo-campo: #fff;
+    --borda-campo: #cfc5ba;
     font-family: Arial, sans-serif;
-    color: #263b52;
-    background: #fff8f0;
+    color: var(--texto);
+    background: var(--fundo);
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+}
+
+body.modo-escuro {
+    --fundo: #171d27;
+    --texto: #e5e9ef;
+    --titulo: #f0d7b0;
+    --cartao: #242d39;
+    --borda: #3a4655;
+    --sombra: rgb(0 0 0 / 25%);
+    --estado: #a9d2ac;
+    --fundo-horario: #40392e;
+    --texto-horario: #f1e4ce;
+    --fundo-campo: #1d2530;
+    --borda-campo: #536071;
 }
 
 * {
@@ -13,6 +38,8 @@
 
 body {
     margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
     line-height: 1.6;
 }
 
@@ -26,6 +53,13 @@ header {
     color: #fff8f0;
 }
 
+.cabecalho-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
 header h1,
 h2,
 .cartao-livro h3,
@@ -37,6 +71,31 @@ header h1 {
     margin: 0;
     font-size: clamp(2rem, 4vw, 2.8rem);
     line-height: 1.3;
+}
+
+.botao-tema {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    margin-top: 6px;
+    border: 1px solid rgb(255 248 240 / 55%);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff8f0;
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.botao-tema:hover,
+.botao-tema:focus-visible {
+    background: rgb(255 248 240 / 15%);
+}
+
+.botao-tema:focus-visible {
+    outline: 3px solid #f5c987;
+    outline-offset: 3px;
 }
 
 header p {
@@ -78,7 +137,7 @@ section {
 
 h2 {
     margin: 0 0 24px;
-    color: #243b5b;
+    color: var(--titulo);
     font-size: 2rem;
     line-height: 1.25;
 }
@@ -118,10 +177,10 @@ h2 {
 .cartao-livro,
 .cartao-evento {
     padding: 25px 26px;
-    border: 1px solid #e8dfd5;
+    border: 1px solid var(--borda);
     border-radius: 13px;
-    background: #fff;
-    box-shadow: 0 2px 9px rgb(52 43 40 / 8%);
+    background: var(--cartao);
+    box-shadow: 0 2px 9px var(--sombra);
 }
 
 .cartao-livro {
@@ -140,7 +199,7 @@ h2 {
 .cartao-livro h3,
 .cartao-evento h3 {
     margin: 0 0 18px;
-    color: #243b5b;
+    color: var(--titulo);
     font-size: 1.45rem;
 }
 
@@ -151,7 +210,7 @@ h2 {
 }
 
 .estado-livro {
-    color: #526653;
+    color: var(--estado);
     font-size: .95rem !important;
 }
 
@@ -182,8 +241,8 @@ h2 {
     margin-top: 0;
     padding: 36px 20px;
     border-radius: 13px;
-    background: #f4cf93;
-    color: #382f29;
+    background: var(--fundo-horario);
+    color: var(--texto-horario);
 }
 
 .horario h2 {
@@ -217,9 +276,9 @@ form {
     gap: 8px;
     max-width: 600px;
     padding: 24px;
-    border: 1px solid #e8dfd5;
+    border: 1px solid var(--borda);
     border-radius: 13px;
-    background: #fff;
+    background: var(--cartao);
 }
 
 label {
@@ -231,10 +290,10 @@ input,
 textarea {
     width: 100%;
     padding: 11px 12px;
-    border: 1px solid #cfc5ba;
+    border: 1px solid var(--borda-campo);
     border-radius: 6px;
-    background: #fff;
-    color: inherit;
+    background: var(--fundo-campo);
+    color: var(--texto);
     font: inherit;
 }
 
