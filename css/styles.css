@@ -1,0 +1,175 @@
+/* Estilos gerais */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #263b70;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+nav {
+    background-color: #172554;
+    text-align: center;
+    padding: 12px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+}
+
+nav a:hover {
+    color: #f4a261;
+}
+
+/* Conteúdo */
+main {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #263b70;
+    border-bottom: 2px solid #f4a261;
+    padding-bottom: 8px;
+}
+
+/* Apresentação */
+.inicio {
+    background-color: #e3e8f2;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+.botao {
+    display: inline-block;
+    background-color: #263b70;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.botao:hover {
+    background-color: #f4a261;
+    color: #172554;
+}
+
+/* Cartões */
+.cartoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cartao {
+    background-color: white;
+    padding: 18px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 1;
+    min-width: 220px;
+}
+
+/* Livros */
+.livros {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.livro {
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.livro img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+/* Eventos */
+.evento {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-left: 4px solid #f4a261;
+}
+
+/* Formulário */
+form {
+    background-color: white;
+    padding: 20px;
+    max-width: 600px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #263b70;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f4a261;
+    color: #172554;
+}
+
+/* Rodapé */
+footer {
+    background-color: #172554;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+footer p {
+    margin: 5px;
+}
+
+/* Telemóveis */
+@media (max-width: 600px) {
+    nav a {
+        display: block;
+        margin: 8px;
+    }
+
+    .livros {
+        grid-template-columns: 1fr;
+    }
+}
