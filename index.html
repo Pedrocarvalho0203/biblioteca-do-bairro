@@ -60,21 +60,29 @@
                     <p class="categoria">Poesia</p>
                     <h3>Mensagem</h3>
                     <p>Fernando Pessoa</p>
+                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
+                    <button class="botao" type="button" data-emprestar>Emprestar</button>
                 </article>
                 <article class="cartao-livro">
                     <p class="categoria">Literatura</p>
                     <h3>A Sibila</h3>
                     <p>Agustina Bessa-Luís</p>
+                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
+                    <button class="botao" type="button" data-emprestar>Emprestar</button>
                 </article>
                 <article class="cartao-livro">
                     <p class="categoria">Clássico</p>
                     <h3>Os Lusíadas</h3>
                     <p>Luís de Camões</p>
+                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
+                    <button class="botao" type="button" data-emprestar>Emprestar</button>
                 </article>
                 <article class="cartao-livro">
                     <p class="categoria">Romance</p>
                     <h3>Ensaio sobre a Cegueira</h3>
                     <p>José Saramago</p>
+                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
+                    <button class="botao" type="button" data-emprestar>Emprestar</button>
                 </article>
             </div>
         </section>
@@ -128,5 +136,15 @@
         <p>Biblioteca do Bairro · 2026</p>
         <p>Um espaço para ler, aprender e descobrir.</p>
     </footer>
+    <script>
+        document.querySelectorAll("[data-emprestar]").forEach((botao) => {
+            botao.addEventListener("click", () => {
+                const estado = botao.previousElementSibling;
+                estado.textContent = "Pedido selecionado. Contacta a biblioteca para confirmar.";
+                botao.textContent = "Pedido selecionado";
+                botao.disabled = true;
+            });
+        });
+    </script>
 </body>
 </html>

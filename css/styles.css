@@ -150,6 +150,11 @@ h2 {
     font-size: 1.1rem;
 }
 
+.estado-livro {
+    color: #526653;
+    font-size: .95rem !important;
+}
+
 .botao {
     display: inline-block;
     padding: 10px 24px;
@@ -165,6 +170,11 @@ h2 {
 .botao:hover,
 .botao:focus-visible {
     background: #873a28;
+}
+
+.botao:disabled {
+    background: #667466;
+    cursor: not-allowed;
 }
 
 .horario {
