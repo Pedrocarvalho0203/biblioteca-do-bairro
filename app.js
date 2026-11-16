@@ -78,3 +78,218 @@ function emprestar(titulo) {
   return "Emprestado!";
 }
 console.log(emprestar("Os Maias"), emprestar("Os Maias"), emprestar("Dom Casmurro"));
+
+const catalogo = [
+  { titulo: "Os Maias", autor: "Eça de Queirós", ano: 1888, disponivel: true },
+  { titulo: "Mensagem", autor: "Fernando Pessoa", ano: 1934, disponivel: false },
+  { titulo: "A Sibila", autor: "Agustina Bessa-Luís", ano: 1954, disponivel: true },
+  { titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572, disponivel: true },
+  { titulo: "Aparição", autor: "Vergílio Ferreira", ano: 1959, disponivel: true },
+  { titulo: "Ensaio sobre a Cegueira", autor: "José Saramago", ano: 1995, disponivel: false },
+];
+//-----------Exercicio 7----------
+const lista = document.querySelector("#lista-livros");
+const resumo = document.querySelector("#resumo");
+
+function mostrarLivros(livros) {
+  lista.replaceChildren();
+  for (const l of livros) {
+    const item = document.createElement("li");
+    const info = document.createElement("span");
+    info.className = "info";
+    info.textContent = `${l.titulo} — ${l.autor} (${l.ano})`;
+    if (!l.disponivel) {
+      item.classList.add("indisponivel");
+      info.append(" · emprestado");
+    }
+    item.append(info);
+    lista.append(item);
+  }
+  const n = livros.filter(l => l.disponivel).length;
+  resumo.textContent = `${livros.length} livros, ${n} disponíveis`;
+}
+
+mostrarLivros(catalogo);
+
+//-----------Exercicio 8----------
+const catalogo = [
+  { titulo: "Os Maias", autor: "Eça de Queirós", ano: 1888, disponivel: true },
+  { titulo: "Mensagem", autor: "Fernando Pessoa", ano: 1934, disponivel: false },
+  { titulo: "A Sibila", autor: "Agustina Bessa-Luís", ano: 1954, disponivel: true },
+  { titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572, disponivel: true },
+  { titulo: "Aparição", autor: "Vergílio Ferreira", ano: 1959, disponivel: true },
+  { titulo: "Ensaio sobre a Cegueira", autor: "José Saramago", ano: 1995, disponivel: false },
+];
+
+const lista = document.querySelector("#lista-livros");
+const resumo = document.querySelector("#resumo");
+const pesquisa = document.querySelector("#pesquisa");
+const botao = document.querySelector("#so-disponiveis");
+const form = document.querySelector("#inscricao");
+const mensagem = document.querySelector("#mensagem");
+
+let soDisponiveis = false;
+
+function mostrarLivros(livros) {
+  lista.replaceChildren();
+  if (livros.length === 0) {
+    const vazio = document.createElement("li");
+    vazio.textContent = "Nenhum livro encontrado.";
+    lista.append(vazio);
+  }
+  for (const l of livros) {
+    const item = document.createElement("li");
+    const info = document.createElement("span");
+    info.className = "info";
+    info.textContent = `${l.titulo} — ${l.autor} (${l.ano})`;
+    if (!l.disponivel) {
+      item.classList.add("indisponivel");
+      info.append(" · emprestado");
+    }
+    item.append(info);
+    lista.append(item);
+  }
+  const n = livros.filter(l => l.disponivel).length;
+  resumo.textContent = `${livros.length} livros, ${n} disponíveis`;
+}
+
+// Pesquisa + filtro: os dois eventos chamam a mesma função
+function atualizar() {
+  const texto = pesquisa.value.trim().toLowerCase();
+  let res = catalogo.filter(l => l.titulo.toLowerCase().includes(texto));
+  if (soDisponiveis) res = res.filter(l => l.disponivel);
+  mostrarLivros(res);
+}
+
+pesquisa.addEventListener("input", atualizar);
+botao.addEventListener("click", () => {
+  soDisponiveis = !soDisponiveis;
+  botao.setAttribute("aria-pressed", String(soDisponiveis));
+  atualizar();
+});
+
+// Formulário validado sem recarregar a página
+form.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  const nome = form.nome.value.trim();
+  const email = form.email.value.trim();
+  form.nome.classList.toggle("invalido", nome === "");
+  form.email.classList.toggle("invalido", !email.includes("@"));
+  if (nome === "" || !email.includes("@")) {
+    mensagem.className = "erro";
+    mensagem.textContent = "Preencha o nome e um e-mail válido.";
+    return;
+  }
+  mensagem.className = "sucesso";
+  mensagem.textContent = `Obrigado, ${nome}! Inscrição feita.`;
+  form.reset();
+});
+
+atualizar();
+
+//-----------Exercicio 9----------
+const lista = document.querySelector("#lista-livros");
+const resumo = document.querySelector("#resumo");
+const pesquisa = document.querySelector("#pesquisa");
+const botao = document.querySelector("#so-disponiveis");
+const botaoTema = document.querySelector("#tema");
+const form = document.querySelector("#inscricao");
+const mensagem = document.querySelector("#mensagem");
+
+let catalogo = [];
+let soDisponiveis = false;
+let favoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
+
+// ---------- Favoritos ----------
+function alternarFavorito(titulo) {
+  favoritos = favoritos.includes(titulo)
+    ? favoritos.filter(t => t !== titulo)
+    : [...favoritos, titulo];
+  localStorage.setItem("favoritos", JSON.stringify(favoritos));
+  atualizar();
+}
+
+// ---------- Mostrar o catálogo ----------
+function mostrarLivros(livros) {
+  lista.replaceChildren();
+  if (livros.length === 0) {
+    const vazio = document.createElement("li");
+    vazio.textContent = "Nenhum livro encontrado.";
+    lista.append(vazio);
+  }
+  for (const l of livros) {
+    const item = document.createElement("li");
+    const info = document.createElement("span");
+    info.className = "info";
+    info.textContent = `${l.titulo} — ${l.autor} (${l.ano})`;
+    if (!l.disponivel) {
+      item.classList.add("indisponivel");
+      info.append(" · emprestado");
+    }
+
+    const guardar = document.createElement("button");
+    guardar.type = "button";
+    const guardado = favoritos.includes(l.titulo);
+    guardar.textContent = guardado ? "Guardado" : "Guardar";
+    guardar.setAttribute("aria-pressed", String(guardado));
+    guardar.addEventListener("click", () => alternarFavorito(l.titulo));
+
+    item.append(info, guardar);
+    lista.append(item);
+  }
+  const n = livros.filter(l => l.disponivel).length;
+  resumo.textContent = `${livros.length} livros, ${n} disponíveis`;
+}
+
+// ---------- Pesquisa e filtro ----------
+function atualizar() {
+  const texto = pesquisa.value.trim().toLowerCase();
+  let res = catalogo.filter(l => l.titulo.toLowerCase().includes(texto));
+  if (soDisponiveis) res = res.filter(l => l.disponivel);
+  mostrarLivros(res);
+}
+
+pesquisa.addEventListener("input", atualizar);
+botao.addEventListener("click", () => {
+  soDisponiveis = !soDisponiveis;
+  botao.setAttribute("aria-pressed", String(soDisponiveis));
+  atualizar();
+});
+
+// ---------- Formulário ----------
+form.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  const nome = form.nome.value.trim();
+  const email = form.email.value.trim();
+  form.nome.classList.toggle("invalido", nome === "");
+  form.email.classList.toggle("invalido", !email.includes("@"));
+  if (nome === "" || !email.includes("@")) {
+    mensagem.className = "erro";
+    mensagem.textContent = "Preencha o nome e um e-mail válido.";
+    return;
+  }
+  mensagem.className = "sucesso";
+  mensagem.textContent = `Obrigado, ${nome}! Inscrição feita.`;
+  form.reset();
+});
+
+// ---------- Carregar o catálogo com fetch ----------
+async function carregarLivros() {
+  try {
+    const resposta = await fetch("livros.json");
+    if (!resposta.ok) throw new Error(resposta.status);
+    catalogo = await resposta.json();
+    atualizar();
+  } catch {
+    lista.textContent = "Não foi possível carregar o catálogo.";
+    resumo.textContent = "";
+  }
+}
+carregarLivros();
+
+// ---------- Tema lembrado ----------
+document.body.classList.toggle("escuro", localStorage.getItem("tema") === "escuro");
+botaoTema.addEventListener("click", () => {
+  const escuro = document.body.classList.toggle("escuro");
+  localStorage.setItem("tema", escuro ? "escuro" : "claro");
+});
