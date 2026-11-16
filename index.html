@@ -1,175 +1,132 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca</title>
-
+    <meta name="description" content="Descobre livros, eventos e atividades na Biblioteca do Bairro.">
+    <title>Biblioteca do Bairro</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
-
-    <header>
-        <h1>Biblioteca do pedro
-        </h1>
-        <p>Um espaço para aprender e descobrir novos livros</p>
+    <header id="inicio">
+        <h1>Biblioteca do Bairro</h1>
+        <p>Livros, eventos e leitura para todos, desde 1987.</p>
     </header>
 
-    <nav>
+    <nav aria-label="Navegação principal">
         <a href="#inicio">Início</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#livros">Livros</a>
+        <a href="#catalogo">Catálogo</a>
         <a href="#eventos">Eventos</a>
+        <a href="#sobre">Sobre</a>
         <a href="#contactos">Contactos</a>
     </nav>
 
     <main>
+        <div class="destaques-layout">
+            <div class="conteudo-destaques">
+                <p class="aviso">Feira do Livro · novidades e encontros para toda a comunidade</p>
 
-        <!-- Início -->
-        <section id="inicio" class="inicio">
-            <h2>Bem-vindo à nossa biblioteca!</h2>
+                <section aria-labelledby="titulo-destaques">
+                    <h2 id="titulo-destaques">Destaques do Mês</h2>
+                    <div class="grelha-livros">
+                        <article class="cartao-livro">
+                            <p class="categoria">Infantil</p>
+                            <h3>O Principezinho</h3>
+                            <p>Antoine de Saint-Exupéry</p>
+                            <a class="botao" href="#contactos">Inscrever-me</a>
+                        </article>
+                        <article class="cartao-livro">
+                            <p class="categoria">Romance</p>
+                            <h3>Os Maias</h3>
+                            <p>Eça de Queirós</p>
+                            <a class="botao" href="#contactos">Inscrever-me</a>
+                        </article>
+                    </div>
+                </section>
+            </div>
 
-            <p>
-                Aqui podes encontrar livros de vários temas,
-                participar em atividades e descobrir o gosto pela leitura.
-            </p>
+            <aside class="horario" aria-labelledby="titulo-horario">
+                <h2 id="titulo-horario">Horário</h2>
+                <p>Segunda a sexta: 09h00 – 19h00</p>
+                <p>Sábado: 09h00 – 13h00</p>
+                <p>Domingo: encerrado</p>
+            </aside>
+        </div>
 
-            <a href="#livros" class="botao">Ver livros</a>
-        </section>
-
-        <!-- Sobre -->
-        <section id="sobre">
-            <h2>Sobre a biblioteca</h2>
-
-            <p>
-                A nossa biblioteca é um local onde todos podem ler,
-                estudar e aprender. Temos livros para diferentes
-                idades e gostos.
-            </p>
-
-            <div class="cartoes">
-
-                <div class="cartao">
-                    <h3>Leitura</h3>
-                    <p>
-                        Temos vários livros para quem gosta de ler
-                        e conhecer novas histórias.
-                    </p>
-                </div>
-
-                <div class="cartao">
-                    <h3>Aprendizagem</h3>
-                    <p>
-                        É um espaço onde podes estudar e
-                        aprender coisas novas.
-                    </p>
-                </div>
-
-                <div class="cartao">
-                    <h3>Atividades</h3>
-                    <p>
-                        Organizamos atividades para pessoas
-                        de diferentes idades.
-                    </p>
-                </div>
-
+        <section id="catalogo">
+            <h2>Catálogo</h2>
+            <div class="grelha-livros">
+                <article class="cartao-livro">
+                    <p class="categoria">Poesia</p>
+                    <h3>Mensagem</h3>
+                    <p>Fernando Pessoa</p>
+                </article>
+                <article class="cartao-livro">
+                    <p class="categoria">Literatura</p>
+                    <h3>A Sibila</h3>
+                    <p>Agustina Bessa-Luís</p>
+                </article>
+                <article class="cartao-livro">
+                    <p class="categoria">Clássico</p>
+                    <h3>Os Lusíadas</h3>
+                    <p>Luís de Camões</p>
+                </article>
+                <article class="cartao-livro">
+                    <p class="categoria">Romance</p>
+                    <h3>Ensaio sobre a Cegueira</h3>
+                    <p>José Saramago</p>
+                </article>
             </div>
         </section>
 
-        <!-- Livros -->
-        <section id="livros">
-            <h2>Alguns dos nossos livros</h2>
-
-            <div class="livros">
-
-                <div class="livro">
-                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500"
-                         alt="Livro sobre uma mesa">
-
-                    <h3>O mundo dos livros</h3>
-                    <p>Um livro para quem gosta de histórias.</p>
-                </div>
-
-                <div class="livro">
-                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500"
-                         alt="Livro aberto">
-
-                    <h3>Aprender mais</h3>
-                    <p>Uma leitura sobre conhecimento e aprendizagem.</p>
-                </div>
-
-                <div class="livro">
-                    <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500"
-                         alt="Livros empilhados">
-
-                    <h3>Uma aventura</h3>
-                    <p>Uma história cheia de aventura e descobertas.</p>
-                </div>
-
-                <div class="livro">
-                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500"
-                         alt="Pessoa a ler">
-
-                    <h3>Hora de ler</h3>
-                    <p>Um livro para aproveitar os momentos de leitura.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Eventos -->
         <section id="eventos">
             <h2>Próximos eventos</h2>
-
-            <div class="evento">
-                <h3>Clube de leitura</h3>
-                <p>15 de maio - Um encontro para falar sobre livros.</p>
-            </div>
-
-            <div class="evento">
-                <h3>Hora do conto</h3>
-                <p>22 de maio - Leitura de histórias para os mais novos.</p>
-            </div>
-
-            <div class="evento">
-                <h3>Feira do livro</h3>
-                <p>30 de maio - Uma oportunidade para descobrir novos livros.</p>
+            <div class="grelha-eventos">
+                <article class="cartao-evento">
+                    <h3>Clube de leitura</h3>
+                    <p>Um encontro para partilhar ideias e falar sobre livros.</p>
+                </article>
+                <article class="cartao-evento">
+                    <h3>Hora do conto</h3>
+                    <p>Leitura de histórias e atividades para os mais novos.</p>
+                </article>
+                <article class="cartao-evento">
+                    <h3>Feira do livro</h3>
+                    <p>Uma oportunidade para descobrir novas leituras.</p>
+                </article>
             </div>
         </section>
 
-        <!-- Contactos -->
+        <section id="sobre">
+            <h2>Sobre a biblioteca</h2>
+            <p>
+                A Biblioteca do Bairro é um espaço de encontro onde todos podem ler,
+                estudar e aprender. Desde 1987, temos livros e atividades para
+                diferentes idades e gostos.
+            </p>
+        </section>
+
         <section id="contactos">
             <h2>Contactos</h2>
-
-            <p>
-                Se tiveres alguma dúvida, podes enviar-nos uma mensagem.
-            </p>
-
+            <p>Para te inscreveres ou esclarecer uma dúvida, envia-nos uma mensagem.</p>
             <form action="#" method="post">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" autocomplete="name" required>
 
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
 
-                <label for="mensagem">Mensagem:</label>
-                <textarea id="mensagem" name="mensagem" rows="5"
-                          required></textarea>
-
-                <button type="submit">Enviar</button>
-
+                <button class="botao" type="submit">Enviar mensagem</button>
             </form>
         </section>
-
     </main>
 
     <footer>
-        <p>Biblioteca - 2026 - Pedro</p>
-        <p>Obrigado pela visita!</p>
+        <p>Biblioteca do Bairro · 2026</p>
+        <p>Um espaço para ler, aprender e descobrir.</p>
     </footer>
-
 </body>
 </html>
