@@ -1,295 +1,473 @@
 
+/* ==========================================
+   EXERCÍCIO 01 - EXPLORAR A BIBLIOTECA
+========================================== */
 
-// ---------- Exercício 1 ----------
-console.log("Bem-vindos à Biblioteca do Bairro!");
-console.log("Anos desde a abertura:", 2026 - 1987); // 39
+// Executar na consola do navegador:
+
+$0.children;
+$0.children[0].textContent;
+$0.firstElementChild.textContent;
+
+document.title = "Biblioteca - teste";
 
 
-// ---------- Exercício 2 ----------
-const nome = "Biblioteca do Bairro";
-const morada = "Rua das Flores, 12";
-let livrosDisponiveis = 1250;
-livrosDisponiveis = livrosDisponiveis - 3; // três empréstimos
-console.log(livrosDisponiveis); // 1247
-console.log(`A ${nome} tem ${livrosDisponiveis} livros disponíveis.`);
-console.log(typeof nome, typeof morada, typeof livrosDisponiveis);
-console.log(nome.toUpperCase());
+/* ==========================================
+   EXERCÍCIO 02 - DESENHAR A ÁRVORE
+========================================== */
 
-// ---------- Exercício 3 ----------
-function aberta3(dia, hora) {
-  if (dia === "domingo") return false;
-  if (dia === "sábado") return hora >= 10 && hora < 13;
-  return hora >= 9 && hora < 19;
+// Estrutura HTML:
+// main
+// ├── h2
+// ├── article
+// │   ├── h3
+// │   └── p
+// │       ├── texto
+// │       └── strong
+// └── article
+
+// Pai de strong: p
+// Filhos de main: h2 e dois article
+// Irmãos de h2: os dois article
+
+
+/* ==========================================
+   EXERCÍCIO 03 - SELECIONAR NA BIBLIOTECA
+========================================== */
+
+{
+  const titulo = document.querySelector("h1");
+
+  const livros = document.querySelectorAll("#catalogo .livro");
+
+  console.log(livros.length);
+
+  const evento = document.querySelector(".evento");
+
+  const emprestados = document.querySelectorAll(
+    '[data-estado="emprestado"]'
+  );
+
+  const campo = document.querySelector('input[name="q"]');
 }
-for (const [d, h] of [["domingo", 11], ["sábado", 11], ["quarta", 19], ["sexta", 9]]) {
-  console.log(d, h, aberta3(d, h) ? "Aberta" : "Fechada");
+
+
+/* ==========================================
+   EXERCÍCIO 04 - PREVER O RESULTADO
+========================================== */
+
+{
+  console.log(document.querySelector("#menu li").textContent);
+
+  console.log(document.querySelectorAll("#menu a").length);
+
+  console.log(
+    document.querySelector(".ativo a").getAttribute("href")
+  );
+
+  console.log(document.querySelector("#menu .inativo"));
+
+  console.log(
+    document.querySelectorAll("li")[2].textContent
+  );
 }
 
-// ---------- Exercício 4 ----------
-function calcularMulta(dias) {
-  return dias > 15 ? (dias - 15) * 0.5 : 0;
-}
-function estaAberta(dia, hora) {
-  return aberta3(dia, hora);
-}
-function formatarEuros(valor) {
-  return valor.toFixed(2).replace(".", ",") + " €";
-}
-function mensagemMulta(dias) {
-  const multa = calcularMulta(dias);
-  if (multa === 0) return "Sem multa";
-  return `Multa a pagar: ${formatarEuros(multa)}`;
-}
-console.log(calcularMulta(10), calcularMulta(22), calcularMulta(30)); // 0 3.5 7.5
-console.log(estaAberta("domingo", 11), estaAberta("segunda", 9), estaAberta("sábado", 13));
-console.log(formatarEuros(3.5), formatarEuros(0), formatarEuros(12.25));
-console.log(mensagemMulta(10), "|", mensagemMulta(22), "|", mensagemMulta(30));
 
-// ---------- Exercício 5 ----------
-const leituras = ["Os Maias", "Mensagem", "A Sibila", "Os Lusíadas", "Aparição"];
-leituras.push("Memorial do Convento", "Ensaio sobre a Cegueira");
-console.log(leituras.length); // 7
-leituras.forEach((titulo, i) => console.log(`${i + 1}. ${titulo}`));
-const longos = leituras.filter(t => t.length > 10);
-const maiusculas = leituras.map(t => t.toUpperCase());
-console.log(longos);
-console.log(maiusculas);
-console.log(leituras.length); 
+/* ==========================================
+   EXERCÍCIO 05 - O LIVRO EM DESTAQUE
+========================================== */
 
-// ---------- Exercício 6 ----------
-const catalogo = [
-  { titulo: "Os Maias", autor: "Eça de Queirós", ano: 1888, disponivel: true },
-  { titulo: "Mensagem", autor: "Fernando Pessoa", ano: 1934, disponivel: false },
-  { titulo: "A Sibila", autor: "Agustina Bessa-Luís", ano: 1954, disponivel: true },
-  { titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572, disponivel: true },
-  { titulo: "Aparição", autor: "Vergílio Ferreira", ano: 1959, disponivel: true },
-  { titulo: "Ensaio sobre a Cegueira", autor: "José Saramago", ano: 1995, disponivel: false },
-];
-for (const l of catalogo) console.log(`${l.titulo} — ${l.autor} (${l.ano})`);
-console.log("Disponíveis:", catalogo.filter(l => l.disponivel).length);
-let antigo = catalogo[0];
-for (const l of catalogo) if (l.ano < antigo.ano) antigo = l;
-console.log("Mais antigo:", antigo.titulo);
-function emprestar(titulo) {
-  const livro = catalogo.find(l => l.titulo === titulo);
-  if (!livro) return "Livro não encontrado.";
-  if (!livro.disponivel) return "Já está emprestado.";
-  livro.disponivel = false;
-  return "Emprestado!";
+{
+  const destaque = document.querySelector("#destaque");
+
+  destaque.querySelector("h3").textContent = "Mensagem";
+
+  const capa = destaque.querySelector(".capa");
+
+  capa.src = "img/mensagem.jpg";
+
+  capa.alt = "Capa de Mensagem, de Fernando Pessoa";
+
+  destaque.querySelector(".mais").href =
+    "/catalogo?autor=pessoa";
+
+  const estado = destaque.dataset.estado;
+
+  destaque.querySelector(".estado").textContent =
+    `Estado: ${estado}`;
+
+  destaque.querySelector(".reservar").disabled =
+    estado === "emprestado";
 }
-console.log(emprestar("Os Maias"), emprestar("Os Maias"), emprestar("Dom Casmurro"));
 
-const catalogo = [
-  { titulo: "Os Maias", autor: "Eça de Queirós", ano: 1888, disponivel: true },
-  { titulo: "Mensagem", autor: "Fernando Pessoa", ano: 1934, disponivel: false },
-  { titulo: "A Sibila", autor: "Agustina Bessa-Luís", ano: 1954, disponivel: true },
-  { titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572, disponivel: true },
-  { titulo: "Aparição", autor: "Vergílio Ferreira", ano: 1959, disponivel: true },
-  { titulo: "Ensaio sobre a Cegueira", autor: "José Saramago", ano: 1995, disponivel: false },
-];
-//-----------Exercicio 7----------
-const lista = document.querySelector("#lista-livros");
-const resumo = document.querySelector("#resumo");
 
-function mostrarLivros(livros) {
-  lista.replaceChildren();
-  for (const l of livros) {
-    const item = document.createElement("li");
-    const info = document.createElement("span");
-    info.className = "info";
-    info.textContent = `${l.titulo} — ${l.autor} (${l.ano})`;
-    if (!l.disponivel) {
-      item.classList.add("indisponivel");
-      info.append(" · emprestado");
+/* ==========================================
+   EXERCÍCIO 06 - A FICHA DO LIVRO
+========================================== */
+
+{
+  const livro = document.querySelector(".livro");
+
+  const botao = livro.querySelector(".reservar");
+
+  console.log(livro.dataset.id);
+
+  console.log(livro.dataset.estado);
+
+  livro.querySelector(".capa").alt = "Capa de Mensagem";
+
+  if (livro.dataset.estado === "emprestado") {
+
+    const [ano, mes, dia] =
+      livro.dataset.devolucao.split("-");
+
+    botao.textContent = `Disponível a ${dia}/${mes}`;
+
+    botao.disabled = true;
+  }
+}
+
+
+/* ==========================================
+   EXERCÍCIO 07 - OS PRIMEIROS EVENTOS
+========================================== */
+
+{
+  const botao = document.querySelector("#reservar");
+  const pesquisa = document.querySelector("#pesquisa");
+  const eco = document.querySelector("#eco");
+  const sugestao = document.querySelector("#sugestao");
+  const contador = document.querySelector("#contador");
+
+  botao.addEventListener("click", () => {
+    botao.textContent = "Reservado";
+    botao.disabled = true;
+  });
+
+  pesquisa.addEventListener("input", () => {
+    eco.textContent = `A procurar: ${pesquisa.value}`;
+  });
+
+  sugestao.addEventListener("input", () => {
+
+    const n = sugestao.value.length;
+
+    contador.textContent = `${n}/200`;
+
+    contador.style.color =
+      n > 180 ? "#B91C1C" : "";
+  });
+
+  pesquisa.addEventListener("keydown", (evento) => {
+
+    if (evento.key === "Escape") {
+      pesquisa.value = "";
     }
-    item.append(info);
+  });
+}
+
+
+/* ==========================================
+   EXERCÍCIO 08 - CORRIGIR OS EVENTOS
+========================================== */
+
+{
+  const botao = document.querySelector("#reservar");
+
+  function reservar() {
+    console.log("Livro reservado!");
+  }
+
+  botao.addEventListener("click", reservar);
+
+  const campo = document.querySelector("#pesquisa");
+  const resultado = document.querySelector("#resultado");
+
+  campo.addEventListener("input", (e) => {
+    resultado.textContent = e.target.value;
+  });
+
+  const link = document.querySelector("#mais");
+
+  link.addEventListener("click", (evento) => {
+    evento.preventDefault();
+    abrirDetalhes();
+  });
+}
+
+
+/* ==========================================
+   EXERCÍCIO 09 - MENU E MODO ESCURO
+========================================== */
+
+{
+  const botaoMenu = document.querySelector("#botao-menu");
+  const menu = document.querySelector("#menu");
+  const botaoTema = document.querySelector("#botao-tema");
+
+  botaoMenu.addEventListener("click", () => {
+
+    const aberto = menu.classList.toggle("aberto");
+
+    botaoMenu.setAttribute("aria-expanded", aberto);
+  });
+
+  botaoTema.addEventListener("click", () => {
+    document.body.classList.toggle("escuro");
+  });
+}
+
+
+/* ==========================================
+   EXERCÍCIO 10 - PROGRESSO DE LEITURA
+========================================== */
+
+{
+  const range = document.querySelector("#lido");
+  const barra = document.querySelector(".progresso");
+  const texto = document.querySelector("#percentagem");
+
+  range.addEventListener("input", () => {
+
+    const valor = Number(range.value);
+
+    barra.style.width = `${valor}%`;
+
+    texto.textContent = `${valor}% lido`;
+
+    barra.classList.toggle("completo", valor === 100);
+  });
+}
+
+
+/* ==========================================
+   EXERCÍCIO 11 - CATÁLOGO A PARTIR DE DADOS
+========================================== */
+
+{
+  const tpl = document.querySelector("#tpl-livro");
+  const lista = document.querySelector("#catalogo");
+
+  for (const livro of livros) {
+
+    const item = tpl.content.cloneNode(true);
+
+    item.querySelector(".titulo").textContent =
+      livro.titulo;
+
+    item.querySelector(".autor").textContent =
+      `${livro.autor}, ${livro.ano}`;
+
+    if (livro.emprestado) {
+
+      item.querySelector(".livro")
+        .classList.add("emprestado");
+
+      item.querySelector(".badge").hidden = false;
+    }
+
     lista.append(item);
   }
-  const n = livros.filter(l => l.disponivel).length;
-  resumo.textContent = `${livros.length} livros, ${n} disponíveis`;
+
+  document.querySelector("#total").textContent =
+    `${livros.length} livros`;
 }
 
-mostrarLivros(catalogo);
 
-//-----------Exercicio 8----------
-const catalogo = [
-  { titulo: "Os Maias", autor: "Eça de Queirós", ano: 1888, disponivel: true },
-  { titulo: "Mensagem", autor: "Fernando Pessoa", ano: 1934, disponivel: false },
-  { titulo: "A Sibila", autor: "Agustina Bessa-Luís", ano: 1954, disponivel: true },
-  { titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572, disponivel: true },
-  { titulo: "Aparição", autor: "Vergílio Ferreira", ano: 1959, disponivel: true },
-  { titulo: "Ensaio sobre a Cegueira", autor: "José Saramago", ano: 1995, disponivel: false },
-];
+/* ==========================================
+   EXERCÍCIO 12 - LISTA DE LEITURA
+========================================== */
 
-const lista = document.querySelector("#lista-livros");
-const resumo = document.querySelector("#resumo");
-const pesquisa = document.querySelector("#pesquisa");
-const botao = document.querySelector("#so-disponiveis");
-const form = document.querySelector("#inscricao");
-const mensagem = document.querySelector("#mensagem");
+{
+  const campo = document.querySelector("#livro");
+  const adicionar = document.querySelector("#adicionar");
+  const lista = document.querySelector("#leitura");
+  const contador = document.querySelector("#contador");
 
-let soDisponiveis = false;
-
-function mostrarLivros(livros) {
-  lista.replaceChildren();
-  if (livros.length === 0) {
-    const vazio = document.createElement("li");
-    vazio.textContent = "Nenhum livro encontrado.";
-    lista.append(vazio);
+  function contar() {
+    contador.textContent =
+      `${lista.children.length} livros`;
   }
-  for (const l of livros) {
-    const item = document.createElement("li");
-    const info = document.createElement("span");
-    info.className = "info";
-    info.textContent = `${l.titulo} — ${l.autor} (${l.ano})`;
-    if (!l.disponivel) {
-      item.classList.add("indisponivel");
-      info.append(" · emprestado");
-    }
-    item.append(info);
-    lista.append(item);
-  }
-  const n = livros.filter(l => l.disponivel).length;
-  resumo.textContent = `${livros.length} livros, ${n} disponíveis`;
+
+  adicionar.addEventListener("click", () => {
+
+    const titulo = campo.value.trim();
+
+    if (!titulo) return;
+
+    const li = document.createElement("li");
+
+    const remover = document.createElement("button");
+
+    li.textContent = `${titulo} `;
+
+    remover.textContent = "Remover";
+
+    remover.addEventListener("click", () => {
+      li.remove();
+      contar();
+    });
+
+    li.append(remover);
+
+    lista.append(li);
+
+    campo.value = "";
+
+    contar();
+  });
 }
 
-// Pesquisa + filtro: os dois eventos chamam a mesma função
-function atualizar() {
-  const texto = pesquisa.value.trim().toLowerCase();
-  let res = catalogo.filter(l => l.titulo.toLowerCase().includes(texto));
-  if (soDisponiveis) res = res.filter(l => l.disponivel);
-  mostrarLivros(res);
-}
 
-pesquisa.addEventListener("input", atualizar);
-botao.addEventListener("click", () => {
-  soDisponiveis = !soDisponiveis;
-  botao.setAttribute("aria-pressed", String(soDisponiveis));
-  atualizar();
-});
+/* ==========================================
+   EXERCÍCIO 13 - LISTA DE LEITURA 2.0
+========================================== */
 
-// Formulário validado sem recarregar a página
-form.addEventListener("submit", (evento) => {
-  evento.preventDefault();
-  const nome = form.nome.value.trim();
-  const email = form.email.value.trim();
-  form.nome.classList.toggle("invalido", nome === "");
-  form.email.classList.toggle("invalido", !email.includes("@"));
-  if (nome === "" || !email.includes("@")) {
-    mensagem.className = "erro";
-    mensagem.textContent = "Preencha o nome e um e-mail válido.";
-    return;
+{
+  const lista = document.querySelector("#leitura");
+
+  function contar() {
+    console.log(`${lista.children.length} livros`);
   }
-  mensagem.className = "sucesso";
-  mensagem.textContent = `Obrigado, ${nome}! Inscrição feita.`;
-  form.reset();
-});
 
-atualizar();
+  lista.addEventListener("click", (evento) => {
 
-//-----------Exercicio 9----------
-const lista = document.querySelector("#lista-livros");
-const resumo = document.querySelector("#resumo");
-const pesquisa = document.querySelector("#pesquisa");
-const botao = document.querySelector("#so-disponiveis");
-const botaoTema = document.querySelector("#tema");
-const form = document.querySelector("#inscricao");
-const mensagem = document.querySelector("#mensagem");
+    const li = evento.target.closest("li");
 
-let catalogo = [];
-let soDisponiveis = false;
-let favoritos = JSON.parse(localStorage.getItem("favoritos")) ?? [];
+    if (!li) return;
 
-// ---------- Favoritos ----------
-function alternarFavorito(titulo) {
-  favoritos = favoritos.includes(titulo)
-    ? favoritos.filter(t => t !== titulo)
-    : [...favoritos, titulo];
-  localStorage.setItem("favoritos", JSON.stringify(favoritos));
-  atualizar();
-}
+    const botao = evento.target.closest("button");
 
-// ---------- Mostrar o catálogo ----------
-function mostrarLivros(livros) {
-  lista.replaceChildren();
-  if (livros.length === 0) {
-    const vazio = document.createElement("li");
-    vazio.textContent = "Nenhum livro encontrado.";
-    lista.append(vazio);
-  }
-  for (const l of livros) {
-    const item = document.createElement("li");
-    const info = document.createElement("span");
-    info.className = "info";
-    info.textContent = `${l.titulo} — ${l.autor} (${l.ano})`;
-    if (!l.disponivel) {
-      item.classList.add("indisponivel");
-      info.append(" · emprestado");
+    if (!botao) {
+      li.classList.toggle("lido");
+      return;
     }
 
-    const guardar = document.createElement("button");
-    guardar.type = "button";
-    const guardado = favoritos.includes(l.titulo);
-    guardar.textContent = guardado ? "Guardado" : "Guardar";
-    guardar.setAttribute("aria-pressed", String(guardado));
-    guardar.addEventListener("click", () => alternarFavorito(l.titulo));
+    const acao = botao.dataset.acao;
 
-    item.append(info, guardar);
-    lista.append(item);
-  }
-  const n = livros.filter(l => l.disponivel).length;
-  resumo.textContent = `${livros.length} livros, ${n} disponíveis`;
+    if (acao === "remover") {
+      li.remove();
+    }
+
+    if (acao === "subir") {
+      li.previousElementSibling?.before(li);
+    }
+
+    if (acao === "descer") {
+      li.nextElementSibling?.after(li);
+    }
+
+    contar();
+  });
 }
 
-// ---------- Pesquisa e filtro ----------
-function atualizar() {
-  const texto = pesquisa.value.trim().toLowerCase();
-  let res = catalogo.filter(l => l.titulo.toLowerCase().includes(texto));
-  if (soDisponiveis) res = res.filter(l => l.disponivel);
-  mostrarLivros(res);
+
+/* ==========================================
+   EXERCÍCIO 14 - INSCRIÇÃO NO CLUBE
+========================================== */
+
+{
+  const form = document.querySelector("#form-clube");
+  const resumo = document.querySelector("#resumo");
+
+  form.elements.nome.addEventListener("input", (evento) => {
+
+    const partes = evento.target.value.trim().split(/\s+/);
+
+    const msg =
+      partes.length < 2
+        ? "Escreve nome e apelido."
+        : "";
+
+    evento.target.setCustomValidity(msg);
+  });
+
+  form.addEventListener("submit", (evento) => {
+
+    evento.preventDefault();
+
+    const dados = new FormData(form);
+
+    const primeiro =
+      dados.get("nome").trim().split(/\s+/)[0];
+
+    const clube = dados.get("clube");
+
+    resumo.textContent =
+      `Obrigado, ${primeiro}! Inscrição no clube ${clube}.`;
+
+    form.reset();
+
+    form.elements.nome.focus();
+  });
 }
 
-pesquisa.addEventListener("input", atualizar);
-botao.addEventListener("click", () => {
-  soDisponiveis = !soDisponiveis;
-  botao.setAttribute("aria-pressed", String(soDisponiveis));
-  atualizar();
-});
 
-// ---------- Formulário ----------
-form.addEventListener("submit", (evento) => {
-  evento.preventDefault();
-  const nome = form.nome.value.trim();
-  const email = form.email.value.trim();
-  form.nome.classList.toggle("invalido", nome === "");
-  form.email.classList.toggle("invalido", !email.includes("@"));
-  if (nome === "" || !email.includes("@")) {
-    mensagem.className = "erro";
-    mensagem.textContent = "Preencha o nome e um e-mail válido.";
-    return;
-  }
-  mensagem.className = "sucesso";
-  mensagem.textContent = `Obrigado, ${nome}! Inscrição feita.`;
-  form.reset();
-});
+/* ==========================================
+   EXERCÍCIO 15 - PESQUISA EM DIRETO
+========================================== */
 
-// ---------- Carregar o catálogo com fetch ----------
-async function carregarLivros() {
-  try {
-    const resposta = await fetch("livros.json");
-    if (!resposta.ok) throw new Error(resposta.status);
-    catalogo = await resposta.json();
-    atualizar();
-  } catch {
-    lista.textContent = "Não foi possível carregar o catálogo.";
-    resumo.textContent = "";
-  }
+{
+  const pesquisa = document.querySelector("#pesquisa");
+
+  const livros = [
+    ...document.querySelectorAll("#catalogo li")
+  ];
+
+  const estado = document.querySelector("#estado");
+
+  pesquisa.addEventListener("input", () => {
+
+    const termo = pesquisa.value.trim().toLowerCase();
+
+    let visiveis = 0;
+
+    for (const li of livros) {
+
+      const corresponde =
+        li.textContent.toLowerCase().includes(termo);
+
+      li.hidden = !corresponde;
+
+      if (corresponde) {
+        visiveis++;
+      }
+    }
+
+    estado.textContent =
+      `${visiveis} livros encontrados`;
+  });
+
+  pesquisa.addEventListener("keydown", (evento) => {
+
+    if (evento.key !== "Escape") return;
+
+    pesquisa.value = "";
+
+    pesquisa.dispatchEvent(new Event("input"));
+  });
 }
-carregarLivros();
 
-// ---------- Tema lembrado ----------
-document.body.classList.toggle("escuro", localStorage.getItem("tema") === "escuro");
-botaoTema.addEventListener("click", () => {
-  const escuro = document.body.classList.toggle("escuro");
-  localStorage.setItem("tema", escuro ? "escuro" : "claro");
-});
+
+/* ==========================================
+   EXERCÍCIO 16 - ENCONTRAR OS ERROS
+========================================== */
+
+{
+  const lista = document.querySelector("#catalogo");
+
+  lista.addEventListener("click", (evento) => {
+
+    const botao = evento.target.closest(".remover");
+
+    if (botao) {
+      botao.closest("li").remove();
+    }
+  });
+
+  const titulo = document.querySelector("h1");
+
+  titulo.textContent = prompt("Nome do clube?") ?? "";
+
+  titulo.classList.add("destaque");
+}
