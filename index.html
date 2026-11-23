@@ -1,175 +1,1451 @@
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descobre livros, eventos e atividades na Biblioteca do Bairro.">
-    <title>Biblioteca do Bairro</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <header id="inicio">
-        <div class="cabecalho-topo">
-            <h1>Biblioteca do Bairro</h1>
-            <button id="alternar-tema" class="botao-tema" type="button"
-                    aria-label="Ativar modo escuro" aria-pressed="false"
-                    title="Ativar modo escuro">
-                <span aria-hidden="true">☾</span>
-            </button>
-        </div>
-        <p>Livros, eventos e leitura para todos, desde 1987.</p>
-    </header>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca do Bairro</title>
 
-    <nav aria-label="Navegação principal">
-        <a href="#inicio">Início</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#eventos">Eventos</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#contactos">Contactos</a>
+<style>
+:root {
+  --bg: #f7f5f0;
+  --card: #ffffff;
+  --text: #252c29;
+  --muted: #777e78;
+  --primary: #496b58;
+  --primary-light: #e5eee7;
+  --border: #e8e8e1;
+  --accent: #d99b68;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: .25s;
+}
+
+body.dark {
+  --bg: #171d19;
+  --card: #242d27;
+  --text: #f2f3ed;
+  --muted: #b0b8b0;
+  --primary: #9ac4a3;
+  --primary-light: #34483a;
+  --border: #3a463e;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
+}
+
+.announcement {
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 9px;
+  font-size: 13px;
+}
+
+header {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar {
+  min-height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-family: Georgia, serif;
+  font-size: 21px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+nav a {
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  background: var(--primary);
+  color: white;
+  transition: .2s;
+}
+
+button:hover {
+  opacity: .85;
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+button.outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.hero {
+  padding: 75px 0 55px;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 45px;
+  align-items: center;
+}
+
+.eyebrow {
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(40px, 6vw, 65px);
+  line-height: 1.08;
+  margin: 15px 0;
+  max-width: 600px;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 500px;
+  margin-bottom: 23px;
+}
+
+.hero-image {
+  background: #e8e1d2;
+  border-radius: 150px 150px 20px 20px;
+  padding: 25px;
+  text-align: center;
+  min-height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 260px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 12px 12px 0 #c9b99c;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+section {
+  padding: 48px 0;
+  scroll-margin-top: 90px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 23px;
+  box-shadow: 0 5px 18px #00000008;
+}
+
+.featured {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.book-cover {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 7px;
+  background: var(--primary-light);
+}
+
+.featured h3 {
+  font-family: Georgia, serif;
+  font-size: 27px;
+  margin: 8px 0;
+}
+
+.featured p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.book-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 17px;
+}
+
+.book-card h3 {
+  font-family: Georgia, serif;
+  margin: 10px 0 4px;
+}
+
+.book-card p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.book-card button {
+  margin-top: 13px;
+  width: 100%;
+}
+
+.book-card .book-cover {
+  height: 150px;
+}
+
+.empty {
+  color: var(--muted);
+  padding: 20px;
+  text-align: center;
+}
+
+.progress-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  align-items: center;
+}
+
+.progress-track {
+  height: 13px;
+  background: var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 14px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  border-radius: 20px;
+  transition: width .3s;
+}
+
+.events {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.event {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+}
+
+.event-date {
+  min-width: 65px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 5px;
+  font-weight: bold;
+}
+
+.event h3 {
+  font-family: Georgia, serif;
+}
+
+.event p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: var(--muted);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-line input {
+  width: auto;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.list-item.lido span {
+  text-decoration: line-through;
+  opacity: .6;
+}
+
+.list-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.list-buttons button {
+  padding: 6px 9px;
+  font-size: 12px;
+}
+
+footer {
+  padding: 35px 0;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  padding: 13px 18px;
+  border-radius: 9px;
+  display: none;
+  z-index: 20;
+}
+
+@media(max-width: 750px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 15px 0;
+  }
+
+  nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    padding: 12px 0;
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: inline-block;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 45px;
+  }
+
+  .hero-image {
+    min-height: 250px;
+  }
+
+  .book-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .featured {
+    grid-template-columns: 1fr;
+  }
+
+  .featured .book-cover {
+    max-width: 190px;
+  }
+
+  .progress-area, .events, .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width: 450px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .nav-actions {
+    flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="announcement" id="aviso">
+  Hoje a biblioteca fecha às 13h
+  <button class="secondary" id="fechar-aviso">Fechar</button>
+</div>
+
+<header>
+  <div class="container navbar">
+
+    <a class="logo" href="#inicio">📚 Biblioteca do Bairro</a>
+
+    <nav id="menu">
+      <a href="#inicio">Início</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#lista">A minha lista</a>
     </nav>
 
-    <main>
-        <div class="destaques-layout">
-            <div class="conteudo-destaques">
-                <p class="aviso">Feira do Livro · novidades e encontros para toda a comunidade</p>
+    <div class="nav-actions">
+      <button class="secondary" id="tema">Tema escuro</button>
+      <button class="outline menu-toggle" id="menu-toggle">Menu</button>
+    </div>
 
-                <section aria-labelledby="titulo-destaques">
-                    <h2 id="titulo-destaques">Destaques do Mês</h2>
-                    <div class="grelha-livros">
-                        <article class="cartao-livro">
-                            <p class="categoria">Infantil</p>
-                            <h3>O Principezinho</h3>
-                            <p>Antoine de Saint-Exupéry</p>
-                            <a class="botao" href="#contactos">Inscrever-me</a>
-                        </article>
-                        <article class="cartao-livro">
-                            <p class="categoria">Romance</p>
-                            <h3>Os Maias</h3>
-                            <p>Eça de Queirós</p>
-                            <a class="botao" href="#contactos">Inscrever-me</a>
-                        </article>
-                    </div>
-                </section>
-            </div>
+  </div>
+</header>
 
-            <aside class="horario" aria-labelledby="titulo-horario">
-                <h2 id="titulo-horario">Horário</h2>
-                <p>Segunda a sexta: 09h00 – 19h00</p>
-                <p>Sábado: 09h00 – 13h00</p>
-                <p>Domingo: encerrado</p>
-            </aside>
+<main class="container">
+
+  <!-- INÍCIO -->
+
+  <section class="hero" id="inicio">
+
+    <div>
+      <span class="eyebrow">Leitura para todos</span>
+
+      <h1>A biblioteca do bairro.</h1>
+
+      <p>
+        Descobre novas histórias, consulta o catálogo,
+        guarda os teus livros favoritos e participa
+        nas atividades da nossa comunidade.
+      </p>
+
+      <div class="actions">
+        <a href="#catalogo"><button>Abrir catálogo</button></a>
+        <a href="#lista"><button class="secondary">A minha lista</button></a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img
+        src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600"
+        alt="Livros numa biblioteca"
+      >
+    </div>
+
+  </section>
+
+
+  <!-- LIVRO EM DESTAQUE -->
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Escolha da semana</span>
+        <h2>Livro em destaque</h2>
+      </div>
+    </div>
+
+    <div class="card featured" id="destaque" data-estado="disponivel">
+
+      <img
+        class="book-cover"
+        src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500"
+        alt="Livro em destaque"
+      >
+
+      <div>
+        <span class="tag">Recomendação</span>
+        <h3>Os Maias</h3>
+        <p>
+          Eça de Queirós<br>
+          Um dos grandes clássicos da literatura portuguesa.
+        </p>
+
+        <p id="estado-destaque">Disponível para reserva</p>
+
+        <button id="reservar-destaque">Reservar livro</button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- CATÁLOGO -->
+
+  <section id="catalogo">
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Explora e descobre</span>
+        <h2>O nosso catálogo</h2>
+        <p id="total-livros">0 livros disponíveis</p>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <input
+        type="search"
+        id="pesquisa"
+        placeholder="Pesquisar por título ou autor..."
+      >
+      <button id="limpar-pesquisa" class="secondary">Limpar</button>
+    </div>
+
+    <div class="book-grid" id="livros"></div>
+
+    <p id="sem-resultados" class="empty" hidden>
+      Não foram encontrados livros.
+    </p>
+
+  </section>
+
+
+  <!-- SUGESTÕES -->
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Queremos ouvir-te</span>
+        <h2>Pesquisa e sugestões</h2>
+      </div>
+    </div>
+
+    <div class="card">
+      <label for="sugestao">Sugere um livro para a biblioteca</label>
+      <textarea
+        id="sugestao"
+        maxlength="200"
+        rows="3"
+        placeholder="Escreve a tua sugestão..."
+      ></textarea>
+      <p style="text-align:right;color:var(--muted);font-size:12px">
+        <span id="contador">0</span> / 200
+      </p>
+      <button id="enviar-sugestao">Enviar sugestão</button>
+    </div>
+  </section>
+
+
+  <!-- PROGRESSO -->
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Continua a ler</span>
+        <h2>Progresso de leitura</h2>
+      </div>
+    </div>
+
+    <div class="card progress-area">
+
+      <div>
+        <h3>O teu objetivo de leitura</h3>
+        <p style="color:var(--muted)">
+          Atualiza a percentagem do livro que estás a ler.
+        </p>
+
+        <input
+          type="range"
+          id="progresso"
+          min="0"
+          max="100"
+          value="0"
+        >
+
+        <div class="progress-track">
+          <div class="progress-bar" id="barra"></div>
         </div>
 
-        <section id="catalogo">
-            <h2>Catálogo</h2>
-            <div class="grelha-livros">
-                <article class="cartao-livro">
-                    <p class="categoria">Poesia</p>
-                    <h3>Mensagem</h3>
-                    <p>Fernando Pessoa</p>
-                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
-                    <button class="botao" type="button" data-emprestar>Emprestar</button>
-                </article>
-                <article class="cartao-livro">
-                    <p class="categoria">Literatura</p>
-                    <h3>A Sibila</h3>
-                    <p>Agustina Bessa-Luís</p>
-                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
-                    <button class="botao" type="button" data-emprestar>Emprestar</button>
-                </article>
-                <article class="cartao-livro">
-                    <p class="categoria">Clássico</p>
-                    <h3>Os Lusíadas</h3>
-                    <p>Luís de Camões</p>
-                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
-                    <button class="botao" type="button" data-emprestar>Emprestar</button>
-                </article>
-                <article class="cartao-livro">
-                    <p class="categoria">Romance</p>
-                    <h3>Ensaio sobre a Cegueira</h3>
-                    <p>José Saramago</p>
-                    <p class="estado-livro" aria-live="polite">Disponível para empréstimo</p>
-                    <button class="botao" type="button" data-emprestar>Emprestar</button>
-                </article>
-            </div>
-        </section>
+        <strong id="valor-progresso">0% lido</strong>
+      </div>
 
-        <section id="eventos">
-            <h2>Próximos eventos</h2>
-            <div class="grelha-eventos">
-                <article class="cartao-evento">
-                    <h3>Clube de leitura</h3>
-                    <p>Um encontro para partilhar ideias e falar sobre livros.</p>
-                </article>
-                <article class="cartao-evento">
-                    <h3>Hora do conto</h3>
-                    <p>Leitura de histórias e atividades para os mais novos.</p>
-                </article>
-                <article class="cartao-evento">
-                    <h3>Feira do livro</h3>
-                    <p>Uma oportunidade para descobrir novas leituras.</p>
-                </article>
-            </div>
-        </section>
+      <div>
+        <h3>Uma página de cada vez.</h3>
+        <p style="color:var(--muted)">
+          Pequenos momentos de leitura podem fazer
+          uma grande diferença.
+        </p>
+      </div>
 
-        <section id="sobre">
-            <h2>Sobre a biblioteca</h2>
-            <p>
-                A Biblioteca do Bairro é um espaço de encontro onde todos podem ler,
-                estudar e aprender. Desde 1987, temos livros e atividades para
-                diferentes idades e gostos.
-            </p>
-        </section>
+    </div>
+  </section>
 
-        <section id="contactos">
-            <h2>Contactos</h2>
-            <p>Para te inscreveres ou esclarecer uma dúvida, envia-nos uma mensagem.</p>
-            <form action="#" method="post">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" autocomplete="name" required>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" autocomplete="email" required>
+  <!-- EVENTOS -->
 
-                <label for="mensagem">Mensagem</label>
-                <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+  <section id="eventos">
 
-                <button class="botao" type="submit">Enviar mensagem</button>
-            </form>
-        </section>
-    </main>
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Participa na comunidade</span>
+        <h2>Próximos eventos</h2>
+      </div>
+    </div>
 
-    <footer>
-        <p>Biblioteca do Bairro · 2026</p>
-        <p>Um espaço para ler, aprender e descobrir.</p>
-    </footer>
-    <script>
-        const botaoTema = document.querySelector("#alternar-tema");
-        const temaGuardado = localStorage.getItem("biblioteca-tema");
+    <div class="events">
 
-        function definirTema(escuro) {
-            document.body.classList.toggle("modo-escuro", escuro);
-            botaoTema.setAttribute("aria-pressed", String(escuro));
-            botaoTema.setAttribute("aria-label", escuro ? "Ativar modo claro" : "Ativar modo escuro");
-            botaoTema.title = escuro ? "Ativar modo claro" : "Ativar modo escuro";
-            botaoTema.querySelector("span").textContent = escuro ? "☀" : "☾";
-        }
+      <article class="card event">
+        <div class="event-date">
+          TER<br>18H
+        </div>
+        <div>
+          <h3>Clube de leitura</h3>
+          <p>Terças-feiras às 18h</p>
+          <button class="reservar-evento">Reservar lugar</button>
+        </div>
+      </article>
 
-        definirTema(temaGuardado === "escuro");
-        botaoTema.addEventListener("click", () => {
-            const escuro = !document.body.classList.contains("modo-escuro");
-            definirTema(escuro);
-            localStorage.setItem("biblioteca-tema", escuro ? "escuro" : "claro");
-        });
+      <article class="card event">
+        <div class="event-date">
+          SÁB<br>15H
+        </div>
+        <div>
+          <h3>Sessão de autores</h3>
+          <p>Sábados às 15h</p>
+          <button class="reservar-evento">Reservar lugar</button>
+        </div>
+      </article>
 
-        document.querySelectorAll("[data-emprestar]").forEach((botao) => {
-            botao.addEventListener("click", () => {
-                const estado = botao.previousElementSibling;
-                estado.textContent = "Pedido selecionado. Contacta a biblioteca para confirmar.";
-                botao.textContent = "Pedido selecionado";
-                botao.disabled = true;
-            });
-        });
-    </script>
+    </div>
+
+  </section>
+
+
+  <!-- INSCRIÇÃO -->
+
+  <section>
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Faz parte do clube</span>
+        <h2>Inscrição no clube</h2>
+        <p>Junta-te às atividades da biblioteca.</p>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <form id="form-inscricao">
+
+        <div class="form-grid">
+
+          <div>
+            <label for="nome">Nome completo</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              placeholder="O teu nome"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="exemplo@email.com"
+              required
+            >
+          </div>
+
+        </div>
+
+        <div>
+          <label for="clube">Clube preferido</label>
+          <select id="clube" name="clube" required>
+            <option value="">Escolhe uma opção</option>
+            <option>Clube de romance</option>
+            <option>Clube policial</option>
+            <option>Clube de poesia</option>
+            <option>Clube infantil</option>
+          </select>
+        </div>
+
+        <label class="checkbox-line">
+          <input type="checkbox" id="regras" required>
+          Aceito as regras do clube
+        </label>
+
+        <button type="submit">Inscrever</button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- FICHA DE LEITOR -->
+
+  <section>
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">A tua conta</span>
+        <h2>Ficha de leitor</h2>
+        <p>Os dados ficam guardados apenas neste navegador.</p>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <form id="form-leitor">
+
+        <div class="form-grid">
+
+          <div>
+            <label for="nome-leitor">Nome</label>
+            <input id="nome-leitor" placeholder="O teu nome">
+          </div>
+
+          <div>
+            <label for="cartao">Número do cartão</label>
+            <input id="cartao" value="BB-1042" readonly>
+          </div>
+
+        </div>
+
+        <p>Géneros preferidos</p>
+
+        <div class="form-grid">
+
+          <label class="checkbox-line">
+            <input type="checkbox" name="genero" value="Romance">
+            Romance
+          </label>
+
+          <label class="checkbox-line">
+            <input type="checkbox" name="genero" value="Policial">
+            Policial
+          </label>
+
+          <label class="checkbox-line">
+            <input type="checkbox" name="genero" value="Poesia">
+            Poesia
+          </label>
+
+          <label class="checkbox-line">
+            <input type="checkbox" name="genero" value="Infantil">
+            Infantil
+          </label>
+
+        </div>
+
+        <div class="actions">
+          <button type="submit">Guardar ficha</button>
+          <button type="button" class="secondary" id="apagar-ficha">
+            Apagar ficha
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- LISTA DE LEITURA -->
+
+  <section id="lista">
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Os teus próximos livros</span>
+        <h2>Lista de leitura</h2>
+        <p id="contador-lista">0 livros na lista</p>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div class="search-box">
+        <input
+          id="novo-livro"
+          placeholder="Título do livro"
+        >
+        <button id="adicionar-livro">Adicionar</button>
+      </div>
+
+      <div id="lista-livros"></div>
+
+      <button class="secondary" id="limpar-lista">
+        Limpar tudo
+      </button>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  <div class="container">
+    <strong>Biblioteca do Bairro</strong>
+    <p>Rua das Flores, 12 · Desde 1987</p>
+    <p>© 2026 Biblioteca do Bairro</p>
+    <button class="secondary" id="topo">Voltar ao início ↑</button>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // FUNÇÃO DE NOTIFICAÇÃO
+
+  function notificar(mensagem) {
+    const toast = document.querySelector("#toast");
+
+    toast.textContent = mensagem;
+    toast.style.display = "block";
+
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 2500);
+  }
+
+
+  // AVISO DO CABEÇALHO
+
+  document.querySelector("#fechar-aviso")
+    .addEventListener("click", () => {
+      document.querySelector("#aviso").remove();
+    });
+
+
+  // MENU
+
+  const menu = document.querySelector("#menu");
+
+  document.querySelector("#menu-toggle")
+    .addEventListener("click", () => {
+      menu.classList.toggle("open");
+    });
+
+  menu.addEventListener("click", evento => {
+    if (evento.target.closest("a")) {
+      menu.classList.remove("open");
+    }
+  });
+
+
+  // TEMA ESCURO
+
+  const botaoTema = document.querySelector("#tema");
+
+  botaoTema.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    botaoTema.textContent =
+      document.body.classList.contains("dark")
+        ? "Tema claro"
+        : "Tema escuro";
+  });
+
+
+  // LIVROS
+
+  const livros = [
+    {
+      id: 1,
+      titulo: "Os Maias",
+      autor: "Eça de Queirós",
+      genero: "Clássico",
+      disponivel: true,
+      imagem: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500"
+    },
+    {
+      id: 2,
+      titulo: "Mensagem",
+      autor: "Fernando Pessoa",
+      genero: "Poesia",
+      disponivel: true,
+      imagem: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500"
+    },
+    {
+      id: 3,
+      titulo: "A Cidade e as Serras",
+      autor: "Eça de Queirós",
+      genero: "Romance",
+      disponivel: false,
+      imagem: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500"
+    },
+    {
+      id: 4,
+      titulo: "Amor de Perdição",
+      autor: "Camilo Castelo Branco",
+      genero: "Romance",
+      disponivel: true,
+      imagem: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=500"
+    },
+    {
+      id: 5,
+      titulo: "A Sibila",
+      autor: "Agustina Bessa-Luís",
+      genero: "Literatura portuguesa",
+      disponivel: true,
+      imagem: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500"
+    },
+    {
+      id: 6,
+      titulo: "O Principezinho",
+      autor: "Antoine de Saint-Exupéry",
+      genero: "Infantil",
+      disponivel: false,
+      imagem: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500"
+    }
+  ];
+
+  const containerLivros = document.querySelector("#livros");
+
+
+  function mostrarLivros(lista) {
+
+    containerLivros.replaceChildren();
+
+    document.querySelector("#total-livros").textContent =
+      `${lista.length} livros encontrados`;
+
+    document.querySelector("#sem-resultados").hidden =
+      lista.length !== 0;
+
+    lista.forEach(livro => {
+
+      const artigo = document.createElement("article");
+      artigo.className = "book-card";
+      artigo.dataset.id = livro.id;
+
+      const imagem = document.createElement("img");
+      imagem.className = "book-cover";
+      imagem.src = livro.imagem;
+      imagem.alt = `Capa de ${livro.titulo}`;
+
+      const titulo = document.createElement("h3");
+      titulo.textContent = livro.titulo;
+
+      const autor = document.createElement("p");
+      autor.textContent = livro.autor;
+
+      const genero = document.createElement("span");
+      genero.className = "tag";
+      genero.textContent = livro.genero;
+
+      const botao = document.createElement("button");
+      botao.textContent = livro.disponivel
+        ? "Reservar"
+        : "Indisponível";
+
+      botao.disabled = !livro.disponivel;
+
+      botao.addEventListener("click", () => {
+        notificar(`Reservaste: ${livro.titulo}`);
+      });
+
+      artigo.append(imagem, titulo, autor, genero, botao);
+
+      containerLivros.append(artigo);
+
+    });
+
+  }
+
+  mostrarLivros(livros);
+
+
+  // PESQUISA DE LIVROS
+
+  const pesquisa = document.querySelector("#pesquisa");
+
+  pesquisa.addEventListener("input", () => {
+
+    const termo = pesquisa.value.toLowerCase().trim();
+
+    const filtrados = livros.filter(livro =>
+      livro.titulo.toLowerCase().includes(termo) ||
+      livro.autor.toLowerCase().includes(termo) ||
+      livro.genero.toLowerCase().includes(termo)
+    );
+
+    mostrarLivros(filtrados);
+
+  });
+
+  document.querySelector("#limpar-pesquisa")
+    .addEventListener("click", () => {
+
+      pesquisa.value = "";
+      mostrarLivros(livros);
+
+    });
+
+
+  // LIVRO EM DESTAQUE
+
+  const destaque = document.querySelector("#destaque");
+
+  document.querySelector("#reservar-destaque")
+    .addEventListener("click", () => {
+
+      if (destaque.dataset.estado === "emprestado") {
+        notificar("Este livro não está disponível.");
+        return;
+      }
+
+      destaque.dataset.estado = "emprestado";
+
+      document.querySelector("#estado-destaque").textContent =
+        "Reservado por ti!";
+
+      document.querySelector("#reservar-destaque").disabled = true;
+
+      notificar("Reserva efetuada com sucesso!");
+
+    });
+
+
+  // SUGESTÕES
+
+  const sugestao = document.querySelector("#sugestao");
+
+  sugestao.addEventListener("input", () => {
+
+    document.querySelector("#contador").textContent =
+      sugestao.value.length;
+
+  });
+
+  document.querySelector("#enviar-sugestao")
+    .addEventListener("click", () => {
+
+      if (!sugestao.value.trim()) {
+        notificar("Escreve uma sugestão primeiro.");
+        return;
+      }
+
+      notificar("Obrigado pela tua sugestão!");
+
+      sugestao.value = "";
+      document.querySelector("#contador").textContent = "0";
+
+    });
+
+
+  // PROGRESSO DE LEITURA
+
+  const progresso = document.querySelector("#progresso");
+
+  progresso.addEventListener("input", () => {
+
+    const valor = Number(progresso.value);
+
+    document.querySelector("#barra").style.width =
+      `${valor}%`;
+
+    document.querySelector("#valor-progresso").textContent =
+      `${valor}% lido`;
+
+  });
+
+
+  // RESERVAR EVENTOS
+
+  document.querySelectorAll(".reservar-evento")
+    .forEach(botao => {
+
+      botao.addEventListener("click", () => {
+
+        botao.textContent = "Lugar reservado";
+        botao.disabled = true;
+
+        notificar("Reserva do evento confirmada!");
+
+      });
+
+    });
+
+
+  // FORMULÁRIO DE INSCRIÇÃO
+
+  const formInscricao = document.querySelector("#form-inscricao");
+
+  formInscricao.addEventListener("submit", evento => {
+
+    evento.preventDefault();
+
+    const dados = new FormData(formInscricao);
+
+    const nome = dados.get("nome");
+
+    notificar(`Bem-vindo/a ao clube, ${nome}!`);
+
+    formInscricao.reset();
+
+  });
+
+
+  // FICHA DE LEITOR COM LOCALSTORAGE
+
+  const formLeitor = document.querySelector("#form-leitor");
+
+  function guardarFicha(evento) {
+
+    evento.preventDefault();
+
+    const nome = document.querySelector("#nome-leitor").value;
+
+    const generos = [
+      ...document.querySelectorAll(
+        'input[name="genero"]:checked'
+      )
+    ].map(campo => campo.value);
+
+    const ficha = {
+      nome: nome,
+      generos: generos
+    };
+
+    localStorage.setItem("fichaLeitor", JSON.stringify(ficha));
+
+    notificar("Ficha guardada neste navegador!");
+
+  }
+
+  formLeitor.addEventListener("submit", guardarFicha);
+
+
+  function carregarFicha() {
+
+    const dados = localStorage.getItem("fichaLeitor");
+
+    if (!dados) return;
+
+    const ficha = JSON.parse(dados);
+
+    document.querySelector("#nome-leitor").value =
+      ficha.nome || "";
+
+    document.querySelectorAll('input[name="genero"]')
+      .forEach(campo => {
+        campo.checked = ficha.generos.includes(campo.value);
+      });
+
+  }
+
+  carregarFicha();
+
+
+  document.querySelector("#apagar-ficha")
+    .addEventListener("click", () => {
+
+      localStorage.removeItem("fichaLeitor");
+
+      formLeitor.reset();
+
+      notificar("Ficha apagada!");
+
+    });
+
+
+  // LISTA DE LEITURA
+
+  const lista = document.querySelector("#lista-livros");
+
+  const campoLivro = document.querySelector("#novo-livro");
+
+  let livrosLeitura = JSON.parse(
+    localStorage.getItem("listaLeitura") || "[]"
+  );
+
+
+  function guardarLista() {
+
+    localStorage.setItem(
+      "listaLeitura",
+      JSON.stringify(livrosLeitura)
+    );
+
+  }
+
+
+  function atualizarLista() {
+
+    lista.replaceChildren();
+
+    livrosLeitura.forEach((livro, indice) => {
+
+      const linha = document.createElement("div");
+      linha.className = "list-item";
+
+      if (livro.lido) {
+        linha.classList.add("lido");
+      }
+
+      const titulo = document.createElement("span");
+      titulo.textContent = livro.titulo;
+
+      const botoes = document.createElement("div");
+      botoes.className = "list-buttons";
+
+      const marcar = document.createElement("button");
+      marcar.className = "secondary";
+      marcar.textContent = livro.lido ? "Não lido" : "Lido";
+
+      marcar.addEventListener("click", () => {
+
+        livrosLeitura[indice].lido =
+          !livrosLeitura[indice].lido;
+
+        guardarLista();
+        atualizarLista();
+
+      });
+
+      const remover = document.createElement("button");
+      remover.textContent = "Apagar";
+
+      remover.addEventListener("click", () => {
+
+        livrosLeitura.splice(indice, 1);
+
+        guardarLista();
+        atualizarLista();
+
+        notificar("Livro removido.");
+
+      });
+
+      botoes.append(marcar, remover);
+
+      linha.append(titulo, botoes);
+
+      lista.append(linha);
+
+    });
+
+    document.querySelector("#contador-lista").textContent =
+      `${livrosLeitura.length} livros na lista`;
+
+  }
+
+
+  function adicionarLivro() {
+
+    const titulo = campoLivro.value.trim();
+
+    if (!titulo) {
+      notificar("Escreve o título de um livro.");
+      campoLivro.focus();
+      return;
+    }
+
+    livrosLeitura.push({
+      titulo: titulo,
+      lido: false
+    });
+
+    campoLivro.value = "";
+
+    guardarLista();
+    atualizarLista();
+
+    notificar("Livro adicionado à tua lista!");
+
+  }
+
+
+  document.querySelector("#adicionar-livro")
+    .addEventListener("click", adicionarLivro);
+
+
+  campoLivro.addEventListener("keydown", evento => {
+
+    if (evento.key === "Enter") {
+      adicionarLivro();
+    }
+
+  });
+
+
+  document.querySelector("#limpar-lista")
+    .addEventListener("click", () => {
+
+      livrosLeitura = [];
+
+      guardarLista();
+      atualizarLista();
+
+      notificar("Lista limpa!");
+
+    });
+
+
+  atualizarLista();
+
+
+  // VOLTAR AO TOPO
+
+  document.querySelector("#topo")
+    .addEventListener("click", () => {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    });
+
+});
+</script>
+
 </body>
 </html>
